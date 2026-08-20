@@ -1,5 +1,9 @@
 import { auth } from "@/lib/auth";
-import { SignInInput, SignUpInput } from "../schemes/auth-schemes";
+import {
+  ForgotPasswordInput,
+  SignInInput,
+  SignUpInput,
+} from "../schemes/auth-schemes";
 import { APIError } from "better-auth";
 import { AppError } from "@/shared/lib/errors";
 
@@ -30,6 +34,25 @@ class AuthService {
         body: {
           ...data,
           callbackURL: "/dashboard",
+        },
+      });
+    } catch (err) {
+      if (err instanceof APIError) {
+        console.log(err.statusCode, err.cause);
+        throw new AppError(err.message);
+      }
+
+      throw new AppError(
+        "An unexpected error occurred. Please try again later.",
+      );
+    }
+  }
+  async forgotPassword(data: ForgotPasswordInput) {
+    try {
+      await auth.api.requestPasswordReset({
+        body: {
+          ...data,
+          redirectTo: "/auth/reset-password",
         },
       });
     } catch (err) {

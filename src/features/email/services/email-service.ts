@@ -37,12 +37,15 @@ export class EmailService {
   static async sendResetPasswordEmail(user: User, url: string): Promise<void> {
     const react = this.createResetPasswordEmail(user, url);
 
-    const { error } = await resend.emails.send({
+
+    const { error, data } = await resend.emails.send({
       from: "Verification <no-reply@mail.julio-zavala.me>",
       to: user.email,
       subject: "Reset your password",
       react,
     });
+
+    console.log(data)
 
     if (error) throw new Error(`Resend verification error: ${error.message}`);
   }

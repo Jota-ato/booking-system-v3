@@ -2,6 +2,8 @@
 
 import { notLoggedAction } from "@/shared/lib/actions";
 import {
+  ForgotPasswordInput,
+  forgotPasswordSchema,
   SignInInput,
   signInSchema,
   SignUpInput,
@@ -32,3 +34,14 @@ export const signInAction = notLoggedAction(async (data: SignInInput) => {
     },
   };
 });
+
+export const forgotPasswordAction = notLoggedAction(
+  async (data: ForgotPasswordInput) => {
+    const zodResponse = forgotPasswordSchema.safeParse(data);
+    if (!zodResponse.success) throw new AppError("Invalid data");
+
+    await authService.forgotPassword(data);
+
+    return "Email sent successfully, please check your email to reset your password.";
+  },
+);

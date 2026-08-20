@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/features/auth/components/sign-up-form";
+import { ForgotPasswordForm } from "@/features/auth/components/forgot-password-form";
 import { Container } from "@/shared/components/layout/container";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -10,21 +10,20 @@ import {
 } from "@/shared/components/ui/card";
 import Link from "next/link";
 
-export default function SignUpPage() {
+export default function ForgotPasswordPage() {
   return (
     <Container>
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle className="text-center text-xl font-bold">
-            Sign up
+            Forgot your password?
           </CardTitle>
           <CardDescription className="text-center">
-            Create new account to access the booking system and manage your
-            reservations.
+            Enter your email address and we'll send you a link to reset your password.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <SignUpForm />
+            <ForgotPasswordForm/>
         </CardContent>
       </Card>
       <div className="flex flex-col sm:flex-row items-center justify-between max-w-2xl mx-auto mt-4">
@@ -38,9 +37,9 @@ export default function SignUpPage() {
         <Button
           nativeButton={false}
           variant="link"
-          render={<Link href={"/auth/forgot-password"} />}
+          render={<Link href={"/auth/sign-up"} />}
         >
-          Forgot your password? Reset it
+          Don't have an account? Sign up
         </Button>
       </div>
     </Container>
