@@ -6,7 +6,7 @@ export async function proxy(req: NextRequest) {
   const { isAuth, user } = await requireAuth();
 
   if (!isAuth || !user) {
-    const loginUrl = new URL("/login", req.url);
+    const loginUrl = new URL("/auth/sign-in", req.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }
