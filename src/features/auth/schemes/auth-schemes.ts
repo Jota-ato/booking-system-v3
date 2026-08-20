@@ -38,7 +38,6 @@ export const signUpSchema = baseAuthSchema
 export const signInSchema = baseAuthSchema.pick({
   email: true,
   password: true,
-  name: true,
 });
 
 export const forgotPasswordSchema = baseAuthSchema.pick({

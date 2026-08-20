@@ -1,3 +1,4 @@
+import { SignInForm } from "@/features/auth/components/sign-in-form";
 import { Container } from "@/shared/components/layout/container";
 import {
   Card,
@@ -19,7 +20,9 @@ export default function SignInpage() {
             reservations.
           </CardDescription>
         </CardHeader>
-        <CardContent>{/** TODO: sign in form */}</CardContent>
+        <CardContent>
+          <SignInForm />
+        </CardContent>
       </Card>
     </Container>
   );
