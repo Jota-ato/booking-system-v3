@@ -5,6 +5,7 @@ import { ac, admin, staff, pending } from "./permissions";
 import { db } from "@/db";
 import * as schema from "@/db/schemes";
 import { nextCookies } from "better-auth/next-js";
+import { EmailService } from "@/features/email/services/email-service";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -12,6 +13,16 @@ export const auth = betterAuth({
     usePlural: true,
     schema,
   }),
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: true,
+  },
+  emailVerification: {
+    sendOnSignUp: true,
+    expiresIn: 1000 * 60 * 60 * 24,
+    sendVerificationEmail: async ({ user, url }) =>
+      await EmailService.sendVerificationEmail(user.name, user.email, url),
+  },
   plugins: [
     adminPlugin({
       ac,
