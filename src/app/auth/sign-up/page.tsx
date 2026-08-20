@@ -1,3 +1,4 @@
+import { SignUpForm } from "@/features/auth/components/sign-up-form";
 import { Container } from "@/shared/components/layout/container";
 import {
   Card,
@@ -21,8 +22,9 @@ export default function SignUpPage() {
             reservations.
           </CardDescription>
         </CardHeader>
-        <CardContent>{/*TODO: Sign up form */}</CardContent>
-        <CardFooter></CardFooter>
+        <CardContent>
+          <SignUpForm />
+        </CardContent>
       </Card>
     </Container>
   );
