@@ -1,0 +1,1 @@
+ALTER TABLE "services" RENAME CONSTRAINT "duration_positove" TO "duration_positive";
