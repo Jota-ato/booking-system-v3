@@ -5,7 +5,10 @@ import {
   boolean,
   index,
   uniqueIndex,
+  pgEnum,
 } from "drizzle-orm/pg-core";
+
+export const userRoles = pgEnum("user_role", ["admin", "staff", "pending"]);
 
 export const users = pgTable("staff", {
   id: text("id").primaryKey(),
@@ -18,7 +21,7 @@ export const users = pgTable("staff", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-  role: text("role").notNull().default("pending"),
+  role: userRoles("role").notNull().default("pending"),
   banned: boolean("banned").default(false),
   banReason: text("ban_reason"),
   banExpires: timestamp("ban_expires"),
