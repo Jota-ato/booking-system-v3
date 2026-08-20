@@ -7,6 +7,8 @@ import { Form } from "@/shared/components/form/form";
 import { FieldInput } from "@/shared/components/form/field-input.types";
 import { FieldWLabel } from "@/shared/components/form/field-w-label";
 import { FormSubmit } from "@/shared/components/form/form-submit";
+import { showResponse } from "@/shared/lib/client-actions";
+import { signUpAction } from "../actions/auth-actions";
 
 const fields: FieldInput<SignUpInput>[] = [
   {
@@ -40,7 +42,7 @@ export function SignUpForm() {
   });
 
   const onSubmit = async (data: SignUpInput) => {
-    console.log(data)
+    showResponse(await signUpAction(data));
   };
 
   return (

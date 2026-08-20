@@ -1,17 +1,26 @@
+import { Html, Heading, Text, Tailwind, Link } from "react-email";
+
 export function SignUpVerfication({
   email,
   name,
-  actionUrl,
+  url,
 }: {
   email: string;
   name: string;
-  actionUrl: string;
+  url: string;
 }) {
   return (
-    <div>
-      <h1>welcome {name}</h1>
-      <p>please verify your email: {email}</p>
-      <a href={actionUrl}>Verify Email</a>
-    </div>
+    <Tailwind>
+      <Html>
+        <Heading className="text-2xl font-bold">Welcome {name}</Heading>
+        <Text>Please verify your email: {email}</Text>
+        <Link
+          className="bg-[#171717] text-[#fafafa] rounded-lg font-bold h-8 py-2 gap-1.5 px-2.5"
+          href={url}
+        >
+          Verify Email
+        </Link>
+      </Html>
+    </Tailwind>
   );
 }
