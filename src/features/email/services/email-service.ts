@@ -19,7 +19,7 @@ export class EmailService {
     const react = this.createVerificationEmail(name, email, actionUrl);
 
     const { error } = await resend.emails.send({
-      from: "Verification <no-reply@julio-zavala.me>",
+      from: "Verification <no-reply@mail.julio-zavala.me>",
       to: email,
       subject: "Verify your email",
       react,
