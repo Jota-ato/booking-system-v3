@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import {
   ForgotPasswordInput,
+  ResetPasswordInput,
   SignInInput,
   SignUpInput,
 } from "../schemes/auth-schemes";
@@ -53,6 +54,29 @@ class AuthService {
         body: {
           ...data,
           redirectTo: "/auth/reset-password",
+        },
+      });
+    } catch (err) {
+      if (err instanceof APIError) {
+        console.log(err.statusCode, err.cause);
+        throw new AppError(err.message);
+      }
+
+      throw new AppError(
+        "An unexpected error occurred. Please try again later.",
+      );
+    }
+  }
+
+  async resetPassword(
+    token: string,
+    { password: newPassword }: ResetPasswordInput,
+  ) {
+    try {
+      await auth.api.resetPassword({
+        body: {
+          token,
+          newPassword,
         },
       });
     } catch (err) {

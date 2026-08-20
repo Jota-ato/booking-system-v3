@@ -4,6 +4,8 @@ import { notLoggedAction } from "@/shared/lib/actions";
 import {
   ForgotPasswordInput,
   forgotPasswordSchema,
+  ResetPasswordInput,
+  resetPasswordSchema,
   SignInInput,
   signInSchema,
   SignUpInput,
@@ -43,5 +45,22 @@ export const forgotPasswordAction = notLoggedAction(
     await authService.forgotPassword(data);
 
     return "Email sent successfully, please check your email to reset your password.";
+  },
+);
+
+export const resetPasswordAction = notLoggedAction(
+  async (token: string, data: ResetPasswordInput) => {
+    const zodResponse = resetPasswordSchema.safeParse(data);
+    if (!zodResponse.success) throw new AppError("Invalid data");
+
+    await authService.resetPassword(token, data);
+
+    return {
+      message:
+        "Password reset successfully, please sign in with your new password.",
+      data: {
+        success: true,
+      },
+    };
   },
 );
