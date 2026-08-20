@@ -1,6 +1,6 @@
-import { Html, Heading, Text, Tailwind, Link } from "react-email";
+import { Html, Heading, Text, Tailwind, Button } from "react-email";
 
-export function SignUpVerfication({
+export function SignUpVerification({
   email,
   name,
   url,
@@ -14,12 +14,12 @@ export function SignUpVerfication({
       <Html>
         <Heading className="text-2xl font-bold">Welcome {name}</Heading>
         <Text>Please verify your email: {email}</Text>
-        <Link
-          className="bg-[#171717] text-[#fafafa] rounded-lg font-bold h-8 py-2 gap-1.5 px-2.5"
+        <Button
+          className="bg-[#171717] text-[#fafafa] rounded-lg font-bold px-4 py-3 text-center no-underline inline-block"
           href={url}
         >
           Verify Email
-        </Link>
+        </Button>
       </Html>
     </Tailwind>
   );

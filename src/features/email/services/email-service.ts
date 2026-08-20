@@ -1,22 +1,22 @@
 import { resend } from "@/lib/resend";
-import { SignUpVerfication } from "../components/sign-up-verification";
+import { SignUpVerification } from "../components/sign-up-verification";
 import type { ReactElement } from "react";
 
 export class EmailService {
   static createVerificationEmail(
     name: string,
     email: string,
-    actionUrl: string,
+    url: string,
   ): ReactElement {
-    return SignUpVerfication({ name, email, actionUrl });
+    return SignUpVerification({ name, email, url });
   }
 
   static async sendVerificationEmail(
     name: string,
     email: string,
-    actionUrl: string,
+    url: string,
   ): Promise<void> {
-    const react = this.createVerificationEmail(name, email, actionUrl);
+    const react = this.createVerificationEmail(name, email, url);
 
     const { error } = await resend.emails.send({
       from: "Verification <no-reply@mail.julio-zavala.me>",

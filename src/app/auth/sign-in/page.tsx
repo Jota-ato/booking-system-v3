@@ -1,4 +1,3 @@
-import { SignUpForm } from "@/features/auth/components/sign-up-form";
 import { Container } from "@/shared/components/layout/container";
 import {
   Card,
@@ -7,8 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card";
-
-export default function SignUpPage() {
+export default function SignInpage() {
   return (
     <Container>
       <Card className="max-w-2xl mx-auto">
@@ -21,9 +19,7 @@ export default function SignUpPage() {
             reservations.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <SignUpForm />
-        </CardContent>
+        <CardContent>{/** TODO: sign in form */}</CardContent>
       </Card>
     </Container>
   );

@@ -51,7 +51,7 @@ importers:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
       react-email:
-        specifier: ^6.9.2
+        specifier: 6.9.2
         version: 6.9.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-hook-form:
         specifier: ^7.85.0

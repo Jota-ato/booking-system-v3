@@ -9,6 +9,7 @@ class AuthService {
       await auth.api.signUpEmail({
         body: {
           ...data,
+          callbackURL: "/auth/sign-in",
         },
       });
     } catch (err) {
