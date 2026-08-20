@@ -1,4 +1,4 @@
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { AppError } from "./errors";
 
 export type NonPromiseActionResponse<T = any> = {
@@ -50,10 +50,36 @@ export function logInAction<T extends any[], R>(
 
       const result = await callback(...args);
       if (tag) {
-        revalidateTag(tag, "max");
+        updateTag(tag);
       }
 
-      revalidatePath("/");
+      return {
+        success: true,
+        message: getSuccessMessage(result),
+        data: result as InferActionData<R>,
+      };
+    } catch (error) {
+      if (error instanceof AppError) {
+        return { success: false, message: error.message };
+      }
+      console.error("[SERVER_ACTION_ERROR]:", error);
+      return {
+        success: false,
+        message:
+          "An unexpected internal error occurred. Please try again later.",
+      };
+    }
+  };
+}
+
+export function notLoggedAction<T extends any[], R>(
+  callback: (...args: T) => Promise<R>,
+) {
+  return async (
+    ...args: T
+  ): Promise<NonPromiseActionResponse<InferActionData<R>>> => {
+    try {
+      const result = await callback(...args);
 
       return {
         success: true,

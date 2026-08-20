@@ -39,7 +39,9 @@ export function SignUpForm() {
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = async (data: SignUpInput) => {};
+  const onSubmit = async (data: SignUpInput) => {
+    console.log(data)
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
