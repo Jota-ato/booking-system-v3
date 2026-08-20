@@ -47,10 +47,12 @@ export const appointments = pgTable(
     paymentStatus: paymentStatus("payment_status").default("unpaid").notNull(),
     startTime: timestamp("start_time", { mode: "date" }).notNull(),
     durationMinutes: smallint("duration_minutes").notNull(),
-    endTime: timestamp("end_time", { mode: "date" }).generatedAlwaysAs(
-      (): SQL =>
-        sql`${appointments.startTime} + make_interval(mins => ${appointments.durationMinutes})`,
-    ),
+    endTime: timestamp("end_time", { mode: "date" })
+      .generatedAlwaysAs(
+        (): SQL =>
+          sql`${appointments.startTime} + make_interval(mins => ${appointments.durationMinutes})`,
+      )
+      .notNull(),
     additionalPriceCents: integer("additional_price_cents")
       .default(0)
       .notNull(),
