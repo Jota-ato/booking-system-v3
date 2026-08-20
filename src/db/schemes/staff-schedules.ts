@@ -29,15 +29,15 @@ export const staffSchedules = pgTable(
       .references(() => staff.id, {
         onDelete: "cascade",
       }),
-    weekday: weekday("weekday").notNull(),
-    startTime: time("start_time").notNull(),
-    endTime: time("end_time").notNull(),
-    restStartTime: time("rest_start_time"),
-    restEndTime: time("rest_end_time"),
+    day: weekday("weekday").notNull(),
+    startHour: time("start_time").notNull(),
+    endHour: time("end_time").notNull(),
+    restStartHour: time("rest_start_time"),
+    restEndHour: time("rest_end_time"),
   },
   (t) => [
-    unique("weekday_staffId_unique").on(t.weekday, t.staffId),
-    check("start_time_before_end_time", sql`${t.startTime} < ${t.endTime}`),
+    unique("weekday_staffId_unique").on(t.day, t.staffId),
+    check("start_time_before_end_time", sql`${t.startHour} < ${t.endHour}`),
     index("staff_schedules_staffId_idx").on(t.staffId),
   ],
 );
