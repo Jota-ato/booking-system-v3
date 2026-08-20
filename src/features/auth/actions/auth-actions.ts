@@ -18,7 +18,7 @@ export const signUpAction = notLoggedAction(async (data: SignUpInput) => {
   const zodResponse = signUpSchema.safeParse(data);
   if (!zodResponse.success) throw new AppError("Invalid data");
 
-  await authService.signUp(data);
+  await authService.signUp(zodResponse.data);
 
   return "User created successfully, please check your email to verify your account.";
 });
@@ -27,7 +27,7 @@ export const signInAction = notLoggedAction(async (data: SignInInput) => {
   const zodResponse = signInSchema.safeParse(data);
   if (!zodResponse.success) throw new AppError("Invalid data");
 
-  await authService.signIn(data);
+  await authService.signIn(zodResponse.data);
 
   return {
     message: "Sign in successful, redirecting to dashboard...",
@@ -42,18 +42,18 @@ export const forgotPasswordAction = notLoggedAction(
     const zodResponse = forgotPasswordSchema.safeParse(data);
     if (!zodResponse.success) throw new AppError("Invalid data");
 
-    await authService.forgotPassword(data);
+    await authService.forgotPassword(zodResponse.data);
 
     return "Email sent successfully, please check your email to reset your password.";
   },
 );
 
 export const resetPasswordAction = notLoggedAction(
-  async (token: string, data: ResetPasswordInput) => {
+  async ({ token, data }: { token: string; data: ResetPasswordInput }) => {
     const zodResponse = resetPasswordSchema.safeParse(data);
     if (!zodResponse.success) throw new AppError("Invalid data");
 
-    await authService.resetPassword(token, data);
+    await authService.resetPassword(token, zodResponse.data);
 
     return {
       message:

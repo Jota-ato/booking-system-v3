@@ -37,7 +37,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
   });
 
   const onSubmit = async (data: ResetPasswordInput) => {
-    const response = showResponse(await resetPasswordAction(token, data));
+    const response = showResponse(await resetPasswordAction({ token, data }));
 
     if (response && response.data.success) {
       redirect("/auth/sign-in");
