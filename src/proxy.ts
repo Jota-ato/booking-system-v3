@@ -3,15 +3,15 @@ import { requireAuth } from "@/lib/auth-server";
 
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const { session, isAuth } = await requireAuth();
+  const { isAuth, user } = await requireAuth();
 
-  if (!isAuth || !session?.user) {
+  if (!isAuth || !user) {
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  const role = session.user.role;
+  const role = user.role;
 
   if (role === "pending") {
     if (pathname !== "/waiting-approval") {
