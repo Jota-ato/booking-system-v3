@@ -49,7 +49,7 @@ export const appointments = pgTable(
     durationMinutes: smallint("duration_minutes").notNull(),
     endTime: timestamp("end_time", { mode: "date" }).generatedAlwaysAs(
       (): SQL =>
-        sql`${appointments.startTime} + (${appointments.durationMinutes} || ' minutes')::interval`,
+        sql`${appointments.startTime} + make_interval(mins => ${appointments.durationMinutes})`,
     ),
     additionalPriceCents: integer("additional_price_cents")
       .default(0)

@@ -20,7 +20,7 @@ export const services = pgTable(
     isActive: boolean("is_active").default(true).notNull(),
   },
   (t) => [
-    check("duration_positove", sql`${t.duration} > 0`),
+    check("duration_positive", sql`${t.duration} > 0`),
     check("price_positive", sql`${t.price} >= 0`),
   ],
 );
