@@ -5,6 +5,7 @@ import {
   text,
   index,
   unique,
+  integer,
 } from "drizzle-orm/pg-core";
 import { appointments } from "./appointments";
 import { services } from "./services";
@@ -24,7 +25,7 @@ export const appointmentServices = pgTable(
         onDelete: "restrict",
       }),
     quantity: smallint("quantity").default(1).notNull(),
-    servicePriceSnapshot: smallint("service_price_snapshot").notNull(),
+    servicePriceSnapshot: integer("service_price_snapshot").notNull(),
     serviceDurationSnapshot: smallint("service_duration_snapshot").notNull(),
     serviceNameSnapshot: text("service_name_snapshot").notNull(),
   },

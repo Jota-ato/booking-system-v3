@@ -5,6 +5,7 @@ import {
   text,
   boolean,
   smallint,
+  integer,
   check,
 } from "drizzle-orm/pg-core";
 
@@ -15,7 +16,7 @@ export const services = pgTable(
     name: text("name").notNull(),
     description: text("description"),
     duration: smallint("duration").notNull(),
-    price: smallint("price").notNull(),
+    price: integer("price").notNull(),
     isActive: boolean("is_active").default(true).notNull(),
   },
   (t) => [

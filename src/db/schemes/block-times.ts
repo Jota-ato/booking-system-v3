@@ -29,7 +29,7 @@ export const blockTimes = pgTable(
     check("end_time_after_start_time", sql`${t.endTime} > ${t.startTime}`),
     check(
       "scope_staffId",
-      sql`(${t.scope} == 'business' AND ${t.staffId} IS NULL) OR (${t.scope} == 'staff' AND ${t.staffId} IS NOT NULL)`,
+      sql`(${t.scope} = 'business' AND ${t.staffId} IS NULL) OR (${t.scope} = 'staff' AND ${t.staffId} IS NOT NULL)`,
     ),
   ],
 );
