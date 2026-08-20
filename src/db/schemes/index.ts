@@ -3,3 +3,7 @@ export * from "./staff";
 export * from "./staff-invitations";
 export * from "./staff-schedules";
 export * from "./services";
+export * from "./staff-services";
+export * from "./customers";
+export * from "./appointments";
+export * from "./appointment-services";
