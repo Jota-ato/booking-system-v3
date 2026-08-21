@@ -45,6 +45,7 @@ export function AccountForm({ user, id }: { user: User; id: string }) {
       <FieldGroup>
         {inputs.map((input) => (
           <FieldWLabel
+          fieldClassNames="min-h-15"
             key={input.name}
             register={register}
             error={errors[input.name]?.message}
