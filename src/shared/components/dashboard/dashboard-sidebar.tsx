@@ -25,7 +25,6 @@ export function DashboardSidebar({ user }: { user: User }) {
         userEmail={user.email}
         userName={user.name}
         userImageUrl={user.image}
-        open={open}
         isMobile={isMobile}
       />
     </Sidebar>

@@ -1,10 +1,15 @@
 import { User } from "@/db/types/index.types";
 import { SettingsPagesSection } from "@/shared/components/dashboard/settings/settings-pages-section";
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from "@/shared/components/ui/avatar";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent } from "@/shared/components/ui/card";
+import { getUserInitials } from "@/shared/utils/names";
 import { PenSquare, Trash } from "lucide-react";
-import Image from "next/image";
 
 export function AccountDetailsCard({ user }: { user: User }) {
   return (
@@ -44,14 +49,12 @@ export function AccountDetailsCard({ user }: { user: User }) {
             </div>
             {/** Profile picture */}
             <div className="flex flex-col items-center gap-2">
-              <Image
-                src={user.image!}
-                alt="Profile picture"
-                width={100}
-                height={100}
-                loading="eager"
-                className="rounded-full"
-              />
+              <Avatar className="size-25">
+                <AvatarImage src={user.image!} />
+                <AvatarFallback className="text-3xl">
+                  {getUserInitials(user.name)}
+                </AvatarFallback>
+              </Avatar>
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="sm">
                   Change picture

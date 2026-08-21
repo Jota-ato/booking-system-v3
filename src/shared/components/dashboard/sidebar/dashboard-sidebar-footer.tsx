@@ -13,25 +13,19 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
 import { FooterDropdownMenu } from "./footer-dropdown-menu";
+import { getUserInitials } from "@/shared/utils/names";
 
 export function DashboardSideBarFooter({
   userName,
   userImageUrl,
   userEmail,
-  open,
   isMobile,
 }: {
   userName: string;
   userImageUrl: string | null;
   userEmail: string;
-  open: boolean;
   isMobile: boolean;
 }) {
-  const userInitials = userName
-    .split(" ")
-    .map((name) => name[0].toUpperCase())
-    .join("");
-
   return (
     <SidebarFooter>
       <DropdownMenu>
@@ -45,9 +39,7 @@ export function DashboardSideBarFooter({
         >
           <Avatar>
             <AvatarImage src={userImageUrl!} alt={userName} />
-            <AvatarFallback>
-              {userInitials}
-            </AvatarFallback>
+            <AvatarFallback>{getUserInitials(userName)}</AvatarFallback>
           </Avatar>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-medium">{userName}</span>
