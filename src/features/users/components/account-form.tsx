@@ -16,7 +16,7 @@ const inputs: FieldInput<UserInput>[] = [
   { name: "email", label: "Email", type: "email" },
 ];
 
-export function AccountForm({ user, id }: { user: User, id: string }) {
+export function AccountForm({ user, id }: { user: User; id: string }) {
   const setIsSubmitting = useAccountStore((s) => s.setIsSubmitting);
 
   const {
@@ -42,10 +42,9 @@ export function AccountForm({ user, id }: { user: User, id: string }) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex-1 flex flex-col md:border-l border-border md:pl-6"
     >
-      <FieldGroup className="p-0">
+      <FieldGroup>
         {inputs.map((input) => (
           <FieldWLabel
-            fieldClassNames="h-15"
             key={input.name}
             register={register}
             error={errors[input.name]?.message}
