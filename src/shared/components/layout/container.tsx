@@ -9,7 +9,7 @@ export function Container({
   children: ReactNode;
 } & HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("mx-auto max-w-6xl w-9/10", className)} {...rest}>
+    <div className={cn("max-w-7xl w-9/10 p-2", className)} {...rest}>
       {children}
     </div>
   );

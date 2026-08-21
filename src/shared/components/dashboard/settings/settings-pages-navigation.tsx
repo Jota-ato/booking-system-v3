@@ -29,7 +29,7 @@ export function SettingsPagesNavigation() {
   const pathName = usePathname();
 
   return (
-    <nav className="flex gap-4">
+    <nav className="flex flex-wrap gap-4">
       {navItems.map((item) => (
         <Button
           key={item.href}

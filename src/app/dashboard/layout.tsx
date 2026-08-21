@@ -17,7 +17,7 @@ export default async function DashboardLayout({
     <SidebarProvider>
       <DashboardSidebar user={user} />
       <main className="flex-1">
-        <Container className="py-6 space-y-6">{children}</Container>
+        <Container className="p-4 space-y-6">{children}</Container>
       </main>
     </SidebarProvider>
   );
