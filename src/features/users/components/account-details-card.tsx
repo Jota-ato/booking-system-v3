@@ -10,6 +10,7 @@ import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { getUserInitials } from "@/shared/utils/names";
 import { PenSquare, Trash } from "lucide-react";
+import { AccountDetails } from "./account-details";
 
 export function AccountDetailsCard({ user }: { user: User }) {
   return (
@@ -33,20 +34,7 @@ export function AccountDetailsCard({ user }: { user: User }) {
           </div>
           {/** Profile data */}
           <div className="md:col-span-2 flex flex-col md:flex-row gap-6">
-            <div className="flex-1 flex flex-col gap-2 md:border-l border-border md:pl-6">
-              <div className="flex flex-col items-start gap-2">
-                <span>Name</span>
-                <span className="w-full px-4 py-2 border border-border rounded-md">
-                  {user.name}
-                </span>
-              </div>
-              <div className="flex flex-col items-start gap-2">
-                <span>Email</span>
-                <span className="w-full px-4 py-2 border border-border rounded-md">
-                  {user.email}
-                </span>
-              </div>
-            </div>
+            <AccountDetails userEmail={user.email} userName={user.name} />
             {/** Profile picture */}
             <div className="flex flex-col items-center gap-2">
               <Avatar className="size-25">
