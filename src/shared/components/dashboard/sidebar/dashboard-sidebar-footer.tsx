@@ -7,17 +7,12 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/shared/components/ui/avatar";
-import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
+import { FooterDropdownMenu } from "./footer-dropdown-menu";
 
 export function DashboardSideBarFooter({
   userName,
@@ -48,9 +43,11 @@ export function DashboardSideBarFooter({
             />
           }
         >
-          <Avatar className="h-8 w-8 rounded-lg">
+          <Avatar>
             <AvatarImage src={userImageUrl!} alt={userName} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+            <AvatarFallback>
+              {userInitials}
+            </AvatarFallback>
           </Avatar>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-medium">{userName}</span>
@@ -58,27 +55,7 @@ export function DashboardSideBarFooter({
           </div>
           <ChevronsUpDown className="ml-auto size-4" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent
-          side={isMobile ? "top" : "right"}
-          className="min-w-56"
-          align="end"
-          sideOffset={4}
-        >
-          <DropdownMenuGroup>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuItem>
-              <Settings />
-              Settings
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem variant="destructive">
-              <LogOut />
-              Sign out
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-        </DropdownMenuContent>
+        <FooterDropdownMenu isMobile={isMobile} />
       </DropdownMenu>
     </SidebarFooter>
   );
