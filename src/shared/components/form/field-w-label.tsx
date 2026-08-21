@@ -25,15 +25,25 @@ export function FieldWLabel<TFieldValues extends FieldValues>({
   error,
   orientation,
   textarea = false,
+  fieldClassNames,
+  inputClassNames,
   ...rest
-}: FieldWLabelProps<TFieldValues>) {
+}: {
+  fieldClassNames?: string;
+  inputClassNames?: string;
+} & FieldWLabelProps<TFieldValues>) {
   return (
-    <Field orientation={orientation} data-invalid={!!error}>
+    <Field
+      className={fieldClassNames}
+      orientation={orientation}
+      data-invalid={!!error}
+    >
       <FieldLabel htmlFor={name}>{label}</FieldLabel>
       {textarea ? (
         <Textarea
           id={name}
           aria-invalid={!!error}
+          className={inputClassNames}
           {...register(name)}
           {...(rest as ComponentProps<typeof Textarea>)}
         />
@@ -41,6 +51,7 @@ export function FieldWLabel<TFieldValues extends FieldValues>({
         <Input
           id={name}
           aria-invalid={!!error}
+          className={inputClassNames}
           {...register(name, { valueAsNumber: rest.type === "number" })}
           {...(rest as ComponentProps<typeof Input>)}
         />
