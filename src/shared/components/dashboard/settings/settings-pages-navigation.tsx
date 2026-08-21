@@ -1,29 +1,27 @@
 "use client";
 import { Button } from "@/shared/components/ui/button";
+import { NavItem } from "@/shared/types/navigation.types";
 import { isActivePath } from "@/shared/utils/pathname";
-import { Route } from "next";
+import { Bell, FileQuestionMark, LucideIcon, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-interface NavItem {
-  label: string;
-  href: Route;
-  exactMatch?: boolean;
-}
 
 const navItems: NavItem[] = [
   {
     label: "Account",
     href: "/dashboard/settings",
     exactMatch: true,
+    icon: User,
   },
   {
     label: "Notifications",
     href: "/dashboard/settings/notifications",
+    icon: Bell,
   },
   {
     label: "Questions",
     href: "/dashboard/settings/questions",
+    icon: FileQuestionMark,
   },
 ];
 
@@ -38,12 +36,13 @@ export function SettingsPagesNavigation() {
           variant={
             isActivePath(pathName, item.href, item.exactMatch)
               ? "default"
-              : "ghost"
+              : "outline"
           }
           size="lg"
           nativeButton={false}
           render={<Link href={item.href} />}
         >
+          {item.icon && <item.icon className="size-4" />}
           {item.label}
         </Button>
       ))}
