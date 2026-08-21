@@ -1,5 +1,4 @@
 import { Container } from "@/shared/components/layout/container";
-import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
 import { ReactNode } from "react";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {

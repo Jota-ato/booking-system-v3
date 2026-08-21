@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { cn } from "@/shared/lib/utils";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/shared/components/layout/theme-provider";
+import { TooltipProvider } from "@/shared/components/ui/tooltip";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -30,8 +31,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster position="top-center" richColors />
+          <TooltipProvider>
+            {children}
+            <Toaster position="top-center" richColors />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
