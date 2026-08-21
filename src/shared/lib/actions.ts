@@ -1,5 +1,6 @@
 import { revalidatePath, updateTag } from "next/cache";
 import { AppError } from "./errors";
+import { StaffPolicies } from "@/features/staff/policies/staff-policies";
 
 export type NonPromiseActionResponse<T = any> = {
   success: boolean;
@@ -31,7 +32,7 @@ function getSuccessMessage(
   return fallback;
 }
 
-export function logInAction<T extends any[], R>(
+export function staffAction<T extends any[], R>(
   callback: (...args: T) => Promise<R>,
   tag?: string,
 ) {
@@ -40,8 +41,8 @@ export function logInAction<T extends any[], R>(
   ): Promise<NonPromiseActionResponse<InferActionData<R>>> => {
     try {
       const { requireAuth } = await import("@/lib/auth-server");
-      const { session } = await requireAuth();
-      if (!session) {
+      const { session, user } = await requireAuth();
+      if (!session || !user || !StaffPolicies.isStaff(user)) {
         return {
           success: false,
           message: "You do not have authorization to perform this action.",
