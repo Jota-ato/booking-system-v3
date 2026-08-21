@@ -13,6 +13,18 @@ export const auth = betterAuth({
     usePlural: true,
     schema,
   }),
+  user: {
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailConfirmation: async ({ user, newEmail, url }) => {
+        await EmailService.sendChangeEmailRequest(user, newEmail, url);
+      },
+    },
+  },
+  rateLimit: {
+    window: 1000 * 60 * 5, // 5 minutes,
+    max: 100, // limit each IP to 100 requests per windowMs
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
