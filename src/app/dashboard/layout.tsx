@@ -3,6 +3,7 @@ import { SidebarProvider } from "@/shared/components/ui/sidebar";
 import { DashboardSidebar } from "@/shared/components/dashboard/dashboard-sidebar";
 import { requireAuth } from "@/lib/auth-server";
 import { redirect } from "next/navigation";
+import { Container } from "@/shared/components/layout/container";
 
 export default async function DashboardLayout({
   children,
@@ -15,7 +16,9 @@ export default async function DashboardLayout({
   return (
     <SidebarProvider>
       <DashboardSidebar user={user} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1">
+        <Container className="py-6 space-y-6">{children}</Container>
+      </main>
     </SidebarProvider>
   );
 }

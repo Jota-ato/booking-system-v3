@@ -7,6 +7,7 @@ import {
 } from "@/shared/components/ui/dropdown-menu";
 import { Settings } from "lucide-react";
 import { SignOutButton } from "@/features/auth/components/sign-out-button";
+import Link from "next/link";
 
 export function FooterDropdownMenu({ isMobile }: { isMobile: boolean }) {
   return (
@@ -18,7 +19,7 @@ export function FooterDropdownMenu({ isMobile }: { isMobile: boolean }) {
     >
       <DropdownMenuGroup>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuItem>
+        <DropdownMenuItem render={<Link href="/dashboard/settings" />}>
           <Settings />
           Settings
         </DropdownMenuItem>
