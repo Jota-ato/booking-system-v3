@@ -1,5 +1,6 @@
 import { AccountDetailsCard } from "@/features/users/components/account-details-card";
 import { requireAuth } from "@/lib/auth-server";
+import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
 
 import { redirect } from "next/navigation";
 
@@ -10,6 +11,7 @@ export default async function SettingsPage() {
   return (
     <>
       <AccountDetailsCard user={user} />
+      <ThemeToggle />
     </>
   );
 }
