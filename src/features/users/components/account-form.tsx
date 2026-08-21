@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSchema, UserInput } from "@/features/users/schemes/user-schemes";
@@ -8,39 +9,36 @@ import { Form } from "@/shared/components/form/form";
 import { FieldGroup } from "@/shared/components/ui/field";
 import { FieldInput } from "@/shared/components/form/field-input.types";
 import { FieldWLabel } from "@/shared/components/form/field-w-label";
-import { FormSubmit } from "@/shared/components/form/form-submit";
+import { useAccountStore } from "../stores/account.store";
 
 const inputs: FieldInput<UserInput>[] = [
-  {
-    name: "name",
-    label: "Name",
-  },
-  {
-    name: "email",
-    label: "Email",
-    type: "email",
-  },
+  { name: "name", label: "Name" },
+  { name: "email", label: "Email", type: "email" },
 ];
 
-export function AccountForm({ user }: { user: User }) {
+export function AccountForm({ user, id }: { user: User, id: string }) {
+  const setIsSubmitting = useAccountStore((s) => s.setIsSubmitting);
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm<UserInput>({
     resolver: zodResolver(userSchema),
-    defaultValues: {
-      name: user.name,
-      email: user.email,
-    },
+    defaultValues: { name: user.name, email: user.email },
   });
 
-  const onSubmit = (data: UserInput) => {
+  useEffect(() => {
+    setIsSubmitting(isSubmitting);
+  }, [isSubmitting, setIsSubmitting]);
+
+  const onSubmit = async (data: UserInput) => {
     console.log("Form submitted:", data);
   };
 
   return (
     <Form
+      id={id}
       onSubmit={handleSubmit(onSubmit)}
       className="flex-1 flex flex-col md:border-l border-border md:pl-6"
     >

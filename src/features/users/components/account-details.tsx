@@ -9,13 +9,13 @@ export function AccountDetails({
     <div className="flex-1 flex flex-col gap-5 md:border-l border-border md:pl-6">
       <div className="flex flex-col items-start gap-2">
         <span className="font-medium text-sm">Name</span>
-        <span className="w-full h-8 px-2.5 py-1 border border-border rounded-md text-base">
+        <span className="w-full h-8 px-2.5 py-1 border border-border rounded-md text-base md:text-sm">
           {userName}
         </span>
       </div>
       <div className="flex flex-col items-start gap-2">
         <span className="font-medium text-sm">Email</span>
-        <span className="w-full h-8 px-2.5 py-1 border border-border rounded-md text-base">
+        <span className="w-full h-8 px-2.5 py-1 border border-border rounded-md text-base md:text-sm">
           {userEmail}
         </span>
       </div>

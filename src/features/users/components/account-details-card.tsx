@@ -4,14 +4,18 @@ import { SettingsPagesSection } from "@/shared/components/dashboard/settings/set
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent } from "@/shared/components/ui/card";
-import { PenSquare, Save } from "lucide-react";
+import { PenSquare, Save, X } from "lucide-react";
 import { AccountDetails } from "./account-details";
 import { ProfileImageControls } from "./profile-image-controls";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { AccountForm } from "./account-form";
+import { useAccountStore } from "../stores/account.store";
+import { Spinner } from "@/shared/components/ui/spinner";
 
 export function AccountDetailsCard({ user }: { user: User }) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditting, setIsEditting] = useState(false);
+  const isSubmitting = useAccountStore((s) => s.isSubmitting);
+  const formId = useId();
 
   return (
     <SettingsPagesSection>
@@ -27,28 +31,60 @@ export function AccountDetailsCard({ user }: { user: User }) {
               </p>
               <p className="text-muted-foreground">Set your account details</p>
             </div>
-            <Button
-              onClick={() => setIsEditing((prev) => !prev)}
-              variant="outline"
-              size="lg"
-            >
-              {isEditing ? (
-                <>
-                  <Save className="size-4" />
-                  Save
-                </>
-              ) : (
-                <>
-                  <PenSquare className="size-4" />
-                  Edit
-                </>
+            <div className="flex items-center gap-2">
+              <Button
+                type={isEditting ? "submit" : "button"}
+                form={isEditting ? formId : undefined}
+                onClick={
+                  !isEditting
+                    ? (e) => {
+                        e.preventDefault();
+                        setIsEditting(true);
+                      }
+                    : undefined
+                }
+                variant={isEditting ? "default" : "outline"}
+                size="lg"
+                disabled={isEditting && isSubmitting}
+              >
+                {isEditting ? (
+                  <>
+                    {isSubmitting ? (
+                      <>
+                        <Spinner />
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="size-4" />
+                        Save
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <PenSquare className="size-4" />
+                    Edit
+                  </>
+                )}
+              </Button>
+              {isEditting && (
+                <Button
+                  variant="destructive"
+                  size="lg"
+                  onClick={() => setIsEditting(false)}
+                  disabled={isSubmitting}
+                >
+                  <X className="size-4" />
+                  Cancel
+                </Button>
               )}
-            </Button>
+            </div>
           </div>
           {/** Profile data */}
           <div className="md:col-span-2 flex flex-col md:flex-row gap-6">
-            {isEditing ? (
-              <AccountForm user={user} />
+            {isEditting ? (
+              <AccountForm user={user} id={formId} />
             ) : (
               <AccountDetails userEmail={user.email} userName={user.name} />
             )}
