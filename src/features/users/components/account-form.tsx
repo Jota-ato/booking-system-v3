@@ -10,6 +10,8 @@ import { FieldGroup } from "@/shared/components/ui/field";
 import { FieldInput } from "@/shared/components/form/field-input.types";
 import { FieldWLabel } from "@/shared/components/form/field-w-label";
 import { useAccountStore } from "../stores/account.store";
+import { showResponse } from "@/shared/lib/client-actions";
+import { updateSelfDataAction } from "../actions/user-actions";
 
 const inputs: FieldInput<UserInput>[] = [
   { name: "name", label: "Name" },
@@ -33,7 +35,7 @@ export function AccountForm({ user, id }: { user: User; id: string }) {
   }, [isSubmitting, setIsSubmitting]);
 
   const onSubmit = async (data: UserInput) => {
-    console.log("Form submitted:", data);
+    showResponse(await updateSelfDataAction(data, user));
   };
 
   return (
@@ -45,7 +47,7 @@ export function AccountForm({ user, id }: { user: User; id: string }) {
       <FieldGroup>
         {inputs.map((input) => (
           <FieldWLabel
-          fieldClassNames="min-h-15"
+            fieldClassNames="min-h-15"
             key={input.name}
             register={register}
             error={errors[input.name]?.message}
