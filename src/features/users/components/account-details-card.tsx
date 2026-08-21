@@ -1,16 +1,12 @@
 import { User } from "@/db/types/index.types";
 import { SettingsPagesSection } from "@/shared/components/dashboard/settings/settings-pages-section";
-import {
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-} from "@/shared/components/ui/avatar";
+
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent } from "@/shared/components/ui/card";
-import { getUserInitials } from "@/shared/utils/names";
 import { PenSquare, Trash } from "lucide-react";
 import { AccountDetails } from "./account-details";
+import { ProfileImageControls } from "./profile-image-controls";
 
 export function AccountDetailsCard({ user }: { user: User }) {
   return (
@@ -36,26 +32,7 @@ export function AccountDetailsCard({ user }: { user: User }) {
           <div className="md:col-span-2 flex flex-col md:flex-row gap-6">
             <AccountDetails userEmail={user.email} userName={user.name} />
             {/** Profile picture */}
-            <div className="flex flex-col items-center gap-2">
-              <Avatar className="size-25">
-                <AvatarImage src={user.image!} />
-                <AvatarFallback className="text-3xl">
-                  {getUserInitials(user.name)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm">
-                  Change picture
-                </Button>
-                <Button
-                  aria-label="Delete profile picture"
-                  variant="outline"
-                  size="icon-sm"
-                >
-                  <Trash className="size-4" />
-                </Button>
-              </div>
-            </div>
+            <ProfileImageControls userImage={user.image} userName={user.name} />
           </div>
         </CardContent>
       </Card>
