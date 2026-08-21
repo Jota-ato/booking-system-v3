@@ -19,6 +19,11 @@ export function ChangeEmailRequest({
           You have requested to change your email to {newEmail}. Please click
           the button below to confirm this change.
         </Text>
+        <Text>
+          After you click the button another email will be sent to {newEmail}{" "}
+          with a verification link. Only after that second step is completed
+          will your email be updated.
+        </Text>
         <Button
           className="bg-[#f7514b] text-[#ffffff] rounded-lg font-bold px-4 py-3 text-center no-underline inline-block"
           href={url}
