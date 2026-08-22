@@ -3,8 +3,8 @@ import { users } from "./auth-schema";
 
 export const staff = pgTable("staff", {
   id: uuid("id").primaryKey().defaultRandom(),
+  userId: text("user_id").references(() => users.id),
   name: text("name").notNull(),
-  user_id: text("user_id").references(() => users.id),
   occupation: text("occupation"),
   about: text("description"),
   image: text("image"),
