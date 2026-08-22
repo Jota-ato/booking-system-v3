@@ -3,7 +3,6 @@ import { User } from "@/db/types/index.types";
 import { SettingsPagesSection } from "@/shared/components/dashboard/settings/settings-pages-section";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
-import { Card, CardContent } from "@/shared/components/ui/card";
 import { PenSquare, Save, X } from "lucide-react";
 import { AccountDetails } from "./account-details";
 import { ProfileImageControls } from "./profile-image-controls";
@@ -12,7 +11,7 @@ import { AccountForm } from "./account-form";
 import { useAccountStore } from "../stores/account.store";
 import { Spinner } from "@/shared/components/ui/spinner";
 
-export function AccountDetailsCard({ user }: { user: User }) {
+export function AccountDetailsSection({ user }: { user: User }) {
   const [isEditting, setIsEditting] = useState(false);
   const isSubmitting = useAccountStore((s) => s.isSubmitting);
   const formId = useId();

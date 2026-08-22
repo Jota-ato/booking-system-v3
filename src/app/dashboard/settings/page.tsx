@@ -1,7 +1,6 @@
-import { AccountDetailsCard } from "@/features/users/components/account-details-section";
+import { AccountDetailsSection } from "@/features/users/components/account-details-section";
 import { requireAuth } from "@/lib/auth-server";
 import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
-
 import { redirect } from "next/navigation";
 
 export default async function SettingsPage() {
@@ -10,7 +9,7 @@ export default async function SettingsPage() {
 
   return (
     <>
-      <AccountDetailsCard user={user} />
+      <AccountDetailsSection user={user} />
       <ThemeToggle />
     </>
   );
