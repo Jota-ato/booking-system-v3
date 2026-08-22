@@ -7,5 +7,5 @@ export const staffSchema = z.object({
   image: z.url({ error: "Invalid image URL" }).nullable().optional(),
 });
 
-export const staffUpdateSchema = staffSchema.partial();
-export type UpdateStaffInput = z.infer<typeof staffUpdateSchema>;
+export const updateStaffSchema = staffSchema.partial();
+export type UpdateStaffInput = z.infer<typeof updateStaffSchema>;

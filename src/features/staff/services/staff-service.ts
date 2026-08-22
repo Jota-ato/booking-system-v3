@@ -13,8 +13,31 @@ class StaffService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async updateStaffInfo(id: string, data: UpdateStaffInput): Promise<void> {
-    await this.staffRepository.update(id, { ...data });
+  async updateStaffInfo({
+    staffId,
+    userId,
+    data,
+  }: {
+    staffId: string;
+    userId: string;
+    data: UpdateStaffInput;
+  }): Promise<void> {
+    const staff = await this.staffRepository.getById(staffId);
+    const user = await this.usersRepository.getById(userId, true);
+
+    if (!staff) {
+      throw new AppError("Staff member not found");
+    }
+
+    if (!user) {
+      throw new AppError("User not found");
+    }
+
+    if (staff.userId !== user.id && user.role !== "admin") {
+      throw new AppError("You are not authorized to update this staff member");
+    }
+
+    await this.staffRepository.update(staffId, { ...data });
   }
 
   async linkStaffToUser(staffId: string, userId: string): Promise<void> {
