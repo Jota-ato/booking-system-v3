@@ -2,6 +2,7 @@ import { AccountDetailsControls } from "@/features/users/components/account-deta
 import { PreferencesControls } from "@/features/users/components/preferences-controls";
 import { StaffControls } from "@/features/users/components/staff-controls";
 import { requireAuth } from "@/lib/auth-server";
+import { Separator } from "@/shared/components/ui/separator";
 import { redirect } from "next/navigation";
 
 export default async function SettingsPage() {
@@ -11,7 +12,9 @@ export default async function SettingsPage() {
   return (
     <>
       <AccountDetailsControls user={user} />
+      <Separator />
       <StaffControls />
+      <Separator />
       <PreferencesControls />
     </>
   );
