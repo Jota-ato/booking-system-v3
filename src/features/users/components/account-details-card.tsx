@@ -20,79 +20,76 @@ export function AccountDetailsCard({ user }: { user: User }) {
   return (
     <SettingsPagesSection>
       <h2>Profile</h2>
-      <Card>
-        <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/** Controls  */}
-          <div className="flex flex-col items-start gap-2">
-            <h3>User details</h3>
-            <div className="flex-1 flex flex-col gap-2">
-              <p>
-                Role: <Badge className="ml-2">{user.role}</Badge>
-              </p>
-              <p className="text-muted-foreground">Set your account details</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                type={isEditting ? "submit" : "button"}
-                form={isEditting ? formId : undefined}
-                onClick={
-                  !isEditting
-                    ? (e) => {
-                        e.preventDefault();
-                        setIsEditting(true);
-                      }
-                    : undefined
-                }
-                variant={isEditting ? "default" : "outline"}
-                size="lg"
-                disabled={isEditting && isSubmitting}
-              >
-                {isEditting ? (
-                  <>
-                    {isSubmitting ? (
-                      <>
-                        <Spinner />
-                        Saving...
-                      </>
-                    ) : (
-                      <>
-                        <Save className="size-4" />
-                        Save
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <PenSquare className="size-4" />
-                    Edit
-                  </>
-                )}
-              </Button>
-              {isEditting && (
-                <Button
-                  variant="destructive"
-                  size="lg"
-                  onClick={() => setIsEditting(false)}
-                  disabled={isSubmitting}
-                >
-                  <X className="size-4" />
-                  Cancel
-                </Button>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/** Controls  */}
+        <div className="flex flex-col items-start gap-2">
+          <div className="flex-1 flex flex-col gap-2">
+            <p>
+              Role: <Badge className="ml-2">{user.role}</Badge>
+            </p>
+            <p className="text-muted-foreground">Set your account details</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              type={isEditting ? "submit" : "button"}
+              form={isEditting ? formId : undefined}
+              onClick={
+                !isEditting
+                  ? (e) => {
+                      e.preventDefault();
+                      setIsEditting(true);
+                    }
+                  : undefined
+              }
+              variant={isEditting ? "default" : "outline"}
+              size="lg"
+              disabled={isEditting && isSubmitting}
+            >
+              {isEditting ? (
+                <>
+                  {isSubmitting ? (
+                    <>
+                      <Spinner />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="size-4" />
+                      Save
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <PenSquare className="size-4" />
+                  Edit
+                </>
               )}
-            </div>
-          </div>
-          {/** Profile data */}
-          <div className="md:col-span-2 flex flex-col md:flex-row gap-6">
-            {isEditting ? (
-              <AccountForm user={user} id={formId} />
-            ) : (
-              <AccountDetails userEmail={user.email} userName={user.name} />
+            </Button>
+            {isEditting && (
+              <Button
+                variant="destructive"
+                size="lg"
+                onClick={() => setIsEditting(false)}
+                disabled={isSubmitting}
+              >
+                <X className="size-4" />
+                Cancel
+              </Button>
             )}
-            {/** Profile picture */}
-            <ProfileImageControls userImage={user.image} userName={user.name} />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+        {/** Profile data */}
+        <div className="md:col-span-2 flex flex-col md:flex-row gap-6">
+          {isEditting ? (
+            <AccountForm user={user} id={formId} />
+          ) : (
+            <AccountDetails userEmail={user.email} userName={user.name} />
+          )}
+          {/** Profile picture */}
+          <ProfileImageControls userImage={user.image} userName={user.name} />
+        </div>
+      </div>
     </SettingsPagesSection>
   );
 }

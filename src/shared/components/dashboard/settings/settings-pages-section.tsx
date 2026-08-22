@@ -9,7 +9,7 @@ export function SettingsPagesSection({
   children: ReactNode;
 } & HTMLAttributes<HTMLDivElement>) {
   return (
-    <section className={cn("py-2 space-y-2", className)} {...props}>
+    <section className={cn("py-2 space-y-4", className)} {...props}>
       {children}
     </section>
   );
