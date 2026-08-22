@@ -1,4 +1,4 @@
-import { UpdateStaff } from "@/db/types/index.types";
+import { Staff, UpdateStaff } from "@/db/types/index.types";
 import { IStaffRepository, staffRepository } from "./staff-repository";
 import { UpdateStaffInput } from "../schemes/staff-schemes";
 import {
@@ -63,6 +63,10 @@ class StaffService {
     }
 
     await this.staffRepository.update(staffId, { userId });
+  }
+
+  async getStaffByUserId(userId: string): Promise<Staff | null> {
+    return this.staffRepository.getByUserId(userId);
   }
 }
 
