@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { User } from "@/db/types/index.types";
+import { StaffPolicies } from "@/features/staff/policies/staff-policies";
 
 export async function getServerSession() {
   return await auth.api.getSession({
@@ -25,7 +26,7 @@ export async function requireAuth() {
     session: session.session,
     user: session.user as User,
     isAdmin: session.user.role === "admin",
-    isStaff: session.user.role === "staff" || session.user.role === "admin",
+    isStaff: StaffPolicies.isStaff(session.user as User),
     isAuth: session ? true : false,
   };
 }
