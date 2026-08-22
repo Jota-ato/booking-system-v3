@@ -25,7 +25,9 @@ export const updateSelfDataAction = staffAction(
     }
 
     await usersService.updateSelfData({ ...zodResponse.data }, user);
-    const changedEmail = zodResponse.data.email !== user.email;
+    const changedEmail: boolean =
+      zodResponse.data.email !== undefined &&
+      zodResponse.data.email !== user.email;
 
     return {
       message: changedEmail
