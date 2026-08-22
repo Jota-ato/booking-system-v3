@@ -1,6 +1,7 @@
-import { AccountDetailsSection } from "@/features/users/components/account-details-controls";
+import { AccountDetailsControls } from "@/features/users/components/account-details-controls";
+import { PreferencesControls } from "@/features/users/components/preferences-controls";
+import { StaffControls } from "@/features/users/components/staff-controls";
 import { requireAuth } from "@/lib/auth-server";
-import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
 import { redirect } from "next/navigation";
 
 export default async function SettingsPage() {
@@ -9,8 +10,9 @@ export default async function SettingsPage() {
 
   return (
     <>
-      <AccountDetailsSection user={user} />
-      <ThemeToggle />
+      <AccountDetailsControls user={user} />
+      <StaffControls />
+      <PreferencesControls />
     </>
   );
 }

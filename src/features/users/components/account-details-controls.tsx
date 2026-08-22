@@ -11,7 +11,7 @@ import { AccountForm } from "./account-form";
 import { useAccountStore } from "../stores/account.store";
 import { Spinner } from "@/shared/components/ui/spinner";
 
-export function AccountDetailsSection({ user }: { user: User }) {
+export function AccountDetailsControls({ user }: { user: User }) {
   const [isEditting, setIsEditting] = useState(false);
   const isSubmitting = useAccountStore((s) => s.isSubmitting);
   const formId = useId();
