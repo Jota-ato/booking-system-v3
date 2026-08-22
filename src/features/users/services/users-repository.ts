@@ -1,4 +1,5 @@
-import { UpdateUser } from "@/db/types/index.types";
+import { db } from "@/db";
+import { UpdateUser, User } from "@/db/types/index.types";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -34,6 +35,8 @@ export interface IUsersRepository {
    * @throws {Error} If the request is rejected (invalid session, email already in use).
    */
   changeEmail(newEmail: string): Promise<void>;
+
+  getById(id: string): Promise<User | null>;
 }
 
 class UsersRepository implements IUsersRepository {
@@ -69,6 +72,15 @@ class UsersRepository implements IUsersRepository {
       },
       headers: await headers(),
     });
+  }
+
+  async getById(id: string): Promise<User | null> {
+    return (
+      (await db.query.users.findFirst({
+        where: { id },
+        
+      })) || null
+    );
   }
 }
 
