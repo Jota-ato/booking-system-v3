@@ -35,10 +35,7 @@ export function ProfileImageControls({ user }: { user: User }) {
 
       setCurrentImage(result.url);
       const response = showResponse(
-        await updateSelfDataAction(
-          { image: result.url, name: user.name, email: user.email },
-          user,
-        ),
+        await updateSelfDataAction({ image: result.url }, user),
       );
 
       if (response && response.changedImage) {
@@ -54,10 +51,13 @@ export function ProfileImageControls({ user }: { user: User }) {
   };
 
   const handleDelete = async () => {
-    setCurrentImage(null);
-    showResponse(
-      await deleteUPloadedImage(extractFileKeyFromUrl(currentImage || "")),
+    const response = showResponse(
+      await updateSelfDataAction({ image: null }, user),
     );
+    if (response && response.changedImage) {
+      await deleteUPloadedImage(extractFileKeyFromUrl(currentImage || ""));
+    }
+    setCurrentImage(null);
   };
 
   return (
@@ -92,7 +92,7 @@ export function ProfileImageControls({ user }: { user: User }) {
           variant="outline"
           size="sm"
         >
-          {isLoading ? "Optimizing & Uploading..." : "Change picture"}
+          Change picture
         </Button>
 
         <Button
