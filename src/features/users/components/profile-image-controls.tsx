@@ -14,18 +14,12 @@ import { Spinner } from "@/shared/components/ui/spinner";
 import { showResponse } from "@/shared/lib/client-actions";
 import { deleteUPloadedImage } from "@/features/images/actions/images-actions";
 import { extractFileKeyFromUrl } from "@/shared/utils/uploadthing";
+import { updateSelfDataAction } from "../actions/user-actions";
+import { User } from "@/db/types/index.types";
 
-export function ProfileImageControls({
-  userImage,
-  userName,
-  onImageUpdated,
-}: {
-  userImage: string | null;
-  userName: string;
-  onImageUpdated?: (newUrl: string) => Promise<void> | void;
-}) {
+export function ProfileImageControls({ user }: { user: User }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [currentImage, setCurrentImage] = useState<string | null>(userImage);
+  const [currentImage, setCurrentImage] = useState<string | null>(user.image);
   const { uploadFile, isLoading } = useUploader();
 
   const handleButtonClick = () => {
@@ -40,8 +34,15 @@ export function ProfileImageControls({
       const result = await uploadFile(file);
 
       setCurrentImage(result.url);
-      if (onImageUpdated) {
-        await onImageUpdated(result.url);
+      const response = showResponse(
+        await updateSelfDataAction(
+          { image: result.url, name: user.name, email: user.email },
+          user,
+        ),
+      );
+
+      if (response && response.changedImage) {
+        await deleteUPloadedImage(extractFileKeyFromUrl(currentImage || ""));
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -70,9 +71,9 @@ export function ProfileImageControls({
       />
 
       <Avatar className="size-25 relative">
-        {currentImage && <AvatarImage src={currentImage} alt={userName} />}
+        {currentImage && <AvatarImage src={currentImage} alt={user.name} />}
         <AvatarFallback className="text-3xl">
-          {getUserInitials(userName)}
+          {getUserInitials(user.name)}
         </AvatarFallback>
 
         {isLoading && (

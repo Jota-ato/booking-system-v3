@@ -86,7 +86,7 @@ export function AccountDetailsSection({ user }: { user: User }) {
             <AccountDetails userEmail={user.email} userName={user.name} />
           )}
           {/** Profile picture */}
-          <ProfileImageControls userImage={user.image} userName={user.name} />
+          <ProfileImageControls user={user} />
         </div>
       </div>
     </SettingsPagesSection>

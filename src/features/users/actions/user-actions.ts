@@ -27,9 +27,14 @@ export const updateSelfDataAction = staffAction(
     }
 
     await usersService.updateSelfData({ ...zodResponse.data, image }, user);
+    const changedEmail = zodResponse.data.email !== user.email;
 
-    return zodResponse.data.email !== user.email
-      ? "We sent an email to your current email address to confirm the change"
-      : "User data updated successfully";
+    return {
+      message: changedEmail
+        ? "Profile updated. Please check your email to confirm the change."
+        : "Profile updated.",
+      success: true,
+      changedImage: image !== user.image,
+    };
   },
 );
