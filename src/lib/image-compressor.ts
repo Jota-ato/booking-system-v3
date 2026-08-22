@@ -1,9 +1,3 @@
-import decodeJpeg from "@jsquash/jpeg/decode";
-import decodePng from "@jsquash/png/decode";
-import decodeWebp from "@jsquash/webp/decode";
-import encodeWebp from "@jsquash/webp/encode";
-import resize from "@jsquash/resize";
-
 interface CompressOptions {
   maxWidth?: number;
   quality?: number;
@@ -11,45 +5,41 @@ interface CompressOptions {
 
 export async function compressImage(
   file: File,
-  options: CompressOptions = { maxWidth: 1920, quality: 75 },
+  options: CompressOptions = {},
 ): Promise<File> {
-  const { maxWidth = 1920, quality = 75 } = options;
-  const arrayBuffer = await file.arrayBuffer();
-  let imageData: ImageData;
-
-  try {
-    if (file.type === "image/jpeg" || file.type === "image/jpg") {
-      imageData = await decodeJpeg(arrayBuffer);
-    } else if (file.type === "image/png") {
-      imageData = await decodePng(arrayBuffer);
-    } else if (file.type === "image/webp") {
-      imageData = await decodeWebp(arrayBuffer);
-    } else {
-      const bitmap = await createImageBitmap(file);
-      const canvas = document.createElement("canvas");
-      canvas.width = bitmap.width;
-      canvas.height = bitmap.height;
-      const ctx = canvas.getContext("2d")!;
-      ctx.drawImage(bitmap, 0, 0);
-      imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    }
-  } catch (error) {
-    throw new Error("Formato de imagen no compatible para compresión.");
+  if (typeof window === "undefined") {
+    throw new Error("compressImage solo puede ejecutarse en el navegador");
   }
 
-  if (imageData.width > maxWidth) {
-    const scale = maxWidth / imageData.width;
-    const targetHeight = Math.round(imageData.height * scale);
+  const { maxWidth = 1920, quality = 75 } = options;
 
+  const [{ default: resize }, { default: encodeWebp }] = await Promise.all([
+    import("@jsquash/resize"),
+    import("@jsquash/webp/encode"),
+  ]);
+
+  const bitmap = await createImageBitmap(file);
+  const canvas = document.createElement("canvas");
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("No se pudo inicializar el Canvas 2D");
+  ctx.drawImage(bitmap, 0, 0);
+
+  let imageData = ctx.getImageData(0, 0, bitmap.width, bitmap.height);
+
+  if (imageData.width > maxWidth) {
+    const targetHeight = Math.round(
+      (imageData.height * maxWidth) / imageData.width,
+    );
     imageData = await resize(imageData, {
       width: maxWidth,
       height: targetHeight,
     });
   }
 
-  const compressedBuffer = await encodeWebp(imageData, {
-    quality,
-  });
+  const compressedBuffer = await encodeWebp(imageData, { quality });
 
   const newFileName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
   return new File([compressedBuffer], newFileName, {
