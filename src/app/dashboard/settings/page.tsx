@@ -1,4 +1,4 @@
-import { AccountDetailsCard } from "@/features/users/components/account-details-card";
+import { AccountDetailsCard } from "@/features/users/components/account-details-section";
 import { requireAuth } from "@/lib/auth-server";
 import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
 

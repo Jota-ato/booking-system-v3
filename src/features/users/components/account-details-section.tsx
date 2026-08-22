@@ -19,7 +19,7 @@ export function AccountDetailsCard({ user }: { user: User }) {
 
   return (
     <SettingsPagesSection>
-      <h2>Profile</h2>
+      <h2>Account</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/** Controls  */}
         <div className="flex flex-col items-start gap-2">
