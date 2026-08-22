@@ -1,4 +1,4 @@
-import { AccountDetailsSection } from "@/features/users/components/account-details-section";
+import { AccountDetailsSection } from "@/features/users/components/account-details-controls";
 import { requireAuth } from "@/lib/auth-server";
 import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
 import { redirect } from "next/navigation";
