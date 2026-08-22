@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { UpdateUser, User } from "@/db/types/index.types";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { FullUser } from "../types/user.types";
 
 /**
  * User data and credential mutations.
@@ -36,7 +37,15 @@ export interface IUsersRepository {
    */
   changeEmail(newEmail: string): Promise<void>;
 
-  getById(id: string): Promise<User | null>;
+  /**
+   * Fetches a user by their ID.
+   * @param id The user's ID.
+   * @param full Whether to include the user's staff information.
+   * @returns If full is true, returns a {@link FullUser}; otherwise, returns a User or null if not found.
+   */
+  getById(id: string, full: true): Promise<FullUser | null>;
+  getById(id: string, full?: false): Promise<User | null>;
+  getById(id: string, full?: boolean): Promise<User | null>;
 }
 
 class UsersRepository implements IUsersRepository {
@@ -74,11 +83,18 @@ class UsersRepository implements IUsersRepository {
     });
   }
 
-  async getById(id: string): Promise<User | null> {
+  /**
+   * @inheritdoc
+   */
+  async getById(id: string, full: true): Promise<FullUser | null>;
+  async getById(id: string, full?: false): Promise<User | null>;
+  async getById(id: string, full?: boolean): Promise<User | null> {
     return (
       (await db.query.users.findFirst({
         where: { id },
-        
+        with: {
+          staff: full,
+        },
       })) || null
     );
   }

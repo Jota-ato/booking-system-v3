@@ -20,7 +20,7 @@ class StaffService {
   async linkStaffToUser(staffId: string, userId: string): Promise<void> {
     const [staff, user] = await Promise.all([
       this.staffRepository.getById(staffId),
-      this.usersRepository.getById(userId),
+      this.usersRepository.getById(userId, true),
     ]);
 
     if (!user) {
@@ -33,6 +33,10 @@ class StaffService {
 
     if (staff.userId) {
       throw new AppError("Staff member is already linked to a user");
+    }
+
+    if (user.staff !== null) {
+      throw new AppError("User is already linked to a staff member");
     }
 
     await this.staffRepository.update(staffId, { userId });
