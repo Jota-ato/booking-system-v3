@@ -26,5 +26,13 @@ export const updateStaffDataAction = staffAction(
       userId,
       data: zodResponse.data,
     });
+
+    const changedImage = zodResponse.data.image !== undefined;
+
+    return {
+      success: true,
+      message: "Staff data updated successfully",
+      changedImage,
+    };
   },
 );

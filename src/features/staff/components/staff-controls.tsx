@@ -1,13 +1,18 @@
 import { SettingsPagesSection } from "@/shared/components/dashboard/settings/settings-pages-section";
+import StaffDetailsControls from "./staff-details-controls";
+import { Staff } from "@/db/types/index.types";
+import { User } from "@/db/types/index.types";
 
-export function StaffControls() {
+export function StaffControls({
+  staff,
+  user,
+}: {
+  staff: Staff | null;
+  user: User;
+}) {
   return (
     <SettingsPagesSection>
-      <h2>Staff</h2>
-      <p className="text-muted-foreground">
-        Manage your staff profile. This is the public information that will be
-        displayed on the landing page.
-      </p>
+      <StaffDetailsControls staff={staff} user={user} />
     </SettingsPagesSection>
   );
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "staff" RENAME COLUMN "description" TO "about";

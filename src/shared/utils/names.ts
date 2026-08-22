@@ -5,6 +5,8 @@
  */
 export const getUserInitials = (name: string): string => {
   const names = name.split(" ");
-  const initials = names.map((n) => n[0].toUpperCase()).join("");
+  const initials = names
+    .map((n, idx) => (n[idx] ? n[idx].toUpperCase() : ""))
+    .join("");
   return initials.length > 2 ? initials.slice(0, 2) : initials;
 };

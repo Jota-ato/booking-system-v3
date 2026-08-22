@@ -6,7 +6,7 @@ export const staff = pgTable("staff", {
   userId: text("user_id").references(() => users.id),
   name: text("name").notNull(),
   occupation: text("occupation"),
-  about: text("description"),
+  about: text("about"),
   image: text("image"),
   is_active: boolean("is_active").default(true).notNull(),
   created_at: timestamp("created_at").defaultNow().notNull(),
